@@ -5,6 +5,13 @@ EXCHANGE_RATE_API = os.environ.get("EXCHANGE_RATE_API")
 
 BASE_LINK = f"http://api.exchangeratesapi.io/v1/latest?access_key={EXCHANGE_RATE_API}"
 
+#function to convert user input
+def convert(secondary, threshold):
+    s = secondary.split()
+    t = threshold.split()
+    t = [float(i) for i in t]
+    d = dict(zip(s, t))
+    return s, d
 
 #function to get exchange rate of currencies 
 def get_rate(secondary_currencies,base_currency="EUR"):

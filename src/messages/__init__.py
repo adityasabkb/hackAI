@@ -1,1 +1,1 @@
-from .general import *
+from .messages import FetchRequest, FetchResponse

@@ -1,11 +1,9 @@
-from agents import fetcher,test_client
+from agents import fetcher, client
 from uagents import Bureau
 
 
-DEBUG_FETCHER = True
-
-if DEBUG_FETCHER:
+if __name__ == "__main__":
     b = Bureau()
-    b.add(fetcher)
-    b.add(test_client)
+    b.add(fetcher.fetcher)
+    b.add(client.client)
     b.run()
