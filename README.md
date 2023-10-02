@@ -1,2 +1,2 @@
 # CurrencyExchangeAgent
-HackAi IITB Techfest
+HackAI IITB Techfest
