@@ -4,9 +4,9 @@ from utils import convert
 from agents.fetcher import fetcher
 
 
-base_currency = input("Enter Base USD  : ")
-secondary_currencies = input("Enter Secondary 'JPY INR EUR'  : ")
-threshold = input("Enter Threshold 20 75 19 : ")
+base_currency = "USD"
+secondary_currencies = "JPY INR EUR"
+threshold = "20 75 19"
 
 secondary_currencies, threshold = convert(secondary_currencies, threshold)
 
@@ -19,7 +19,7 @@ async def fetch_rates(ctx: Context):
 
 @client.on_message(FetchResponse)
 async def print_rates(ctx: Context,_sender: str, msg: FetchResponse):
-    ctx.logger.info(f"rates are: {msg.rates}")
+    ctx.logger.info(f"rates are: {msg.rates}  w.r.t base {base_currency}")
     
     for i in msg.rates.keys():
         if msg.rates[i] >= threshold[i]:
