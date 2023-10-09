@@ -4,6 +4,16 @@ from utils import convert
 from agents.fetcher import fetcher
 
 
+
+'''
+
+this file defines the client agent which is responisble for
+periodically sending displaying exchange rates to user
+and displaying alerts when required
+
+'''
+
+#taking inputs from user
 base_currency = input("enter base currency eg. USD: ")
 secondary_currencies = input("enter currencies to be monitored\nwith spaces between them eg . JPY INR EUR : ")
 max_threshold = input("enter maximum thresholds for respective currencies eg. 20 75 19: ")
@@ -35,17 +45,25 @@ async def print_rates(ctx: Context,_sender: str, msg: FetchResponse):
         
         #the loop displays same rates 30 time every two seconds
         #as exchange rates update frequency is 1 min
-        
-        ctx.logger.info(f"rates are: {msg.rates}  w.r.t base {base_currency}")
 
+        #creating log line which will be added to log.txt
+        log = ""
+        ctx.logger.info(f"rates are: {msg.rates}  w.r.t base {base_currency}")
+        log +=f"base currency: {base_currency} secondary currency: {str(msg.rates)} "
         #checking for threshold violation
         for i in msg.rates.keys():
             if (msg.rates[i] >= max_threshold[i]) or (msg.rates[i]<=min_threshold[i]):
-                ctx.logger.critical(f"ALERT!! {i} is crossing threshold")
+                alert_msg = f"ALERT!! {i} is crossing threshold"
+                ctx.logger.critical(alert_msg)
             
     else:
         #displays error if error occured during fetching rates
         ctx.logger.error("Not able to fetch rates")
+        log = "Error" # log = error in case rates were not fetched
+
+    with open(".././log.txt","a") as f:
+        f.write(f"\n{log}")#finally writing log to the log file
+        f.close()
             
 
     

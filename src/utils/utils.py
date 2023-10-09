@@ -1,6 +1,15 @@
 import os
 import requests
 
+'''
+this file defines two utility functions
+
+1 convert: will be used for parsing user input
+
+2 get_rate: will be used for fetching exchange rates from the api
+'''
+
+
 #function to convert user input
 def convert(secondary, min_threshold, max_threshold):
     s = secondary.split()

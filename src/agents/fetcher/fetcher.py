@@ -2,6 +2,11 @@ from uagents import Agent,Context
 from utils import get_rate
 from messages import *
 
+'''
+this file defines fetcher agenet which is responsible for
+fetching data from api and giving it to client
+'''
+
 fetcher = Agent(name="Fetcher Agent")
 
 @fetcher.on_message(FetchRequest,replies={FetchResponse})

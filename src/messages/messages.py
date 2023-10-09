@@ -1,5 +1,9 @@
 from uagents import Model
 
+'''
+this file defines basic message types which will be used by the agents
+'''
+
 class FetchRequest(Model):
     '''
     Message model for Fetch request
