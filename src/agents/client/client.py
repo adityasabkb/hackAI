@@ -19,11 +19,14 @@ async def fetch_rates(ctx: Context):
 
 @client.on_message(FetchResponse)
 async def print_rates(ctx: Context,_sender: str, msg: FetchResponse):
-    ctx.logger.info(f"rates are: {msg.rates}  w.r.t base {base_currency}")
-    
-    for i in msg.rates.keys():
-        if msg.rates[i] >= threshold[i]:
-            ctx.logger.critical(f"ALERT!! {i} is crossing threshold {threshold[i]}")
+    if msg.success:
+        ctx.logger.info(f"rates are: {msg.rates}  w.r.t base {base_currency}")
+        
+        for i in msg.rates.keys():
+            if msg.rates[i] >= threshold[i]:
+                ctx.logger.critical(f"ALERT!! {i} is crossing threshold {threshold[i]}")
+    else:
+        ctx.logger.error("Not able to fetch rates")
             
 
     

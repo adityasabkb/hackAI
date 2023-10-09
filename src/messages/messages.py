@@ -5,5 +5,6 @@ class FetchRequest(Model):
     secondary_currencies: list
 
 class FetchResponse(Model):
+    success: bool
     rates: dict
 
