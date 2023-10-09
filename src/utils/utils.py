@@ -2,12 +2,18 @@ import os
 import requests
 
 #function to convert user input
-def convert(secondary, threshold):
+def convert(secondary, min_threshold, max_threshold):
     s = secondary.split()
-    t = threshold.split()
-    t = [float(i) for i in t]
-    d = dict(zip(s, t))
-    return s, d
+    tmin = min_threshold.split()
+    tmax = max_threshold.split()
+
+    tmin = [float(i) for i in tmin]
+    tmax = [float(i) for i in tmax]
+
+    dmin = dict(zip(s, tmin))
+    dmax = dict(zip(s, tmax))
+
+    return s, dmin, dmax
 
 API_KEY = os.environ.get("CURRENCY_EXCHANGE_API") # api key is stored in environment variable so that it is not exposed in pulblic repository
 

@@ -6,9 +6,10 @@ from agents.fetcher import fetcher
 
 base_currency = input("enter base currency eg. USD: ")
 secondary_currencies = input("enter currencies to be monitored\nwith spaces between them eg . JPY INR EUR : ")
-threshold = input("enter thresholds for respective currencies eg. 20 75 19: ")
+max_threshold = input("enter maximum thresholds for respective currencies eg. 20 75 19: ")
+min_threshold = input("enter minimum thresholds for respective currencies eg. 10 65 17: ")
 
-secondary_currencies, threshold = convert(secondary_currencies, threshold)
+secondary_currencies, min_threshold, max_threshold = convert(secondary_currencies, min_threshold, max_threshold)
 
 #this is the client agent which will send periodic request to fetcher agent
 #after recieving rates, it will display rates and alerts
@@ -39,8 +40,8 @@ async def print_rates(ctx: Context,_sender: str, msg: FetchResponse):
 
         #checking for threshold violation
         for i in msg.rates.keys():
-            if msg.rates[i] >= threshold[i]:
-                ctx.logger.critical(f"ALERT!! {i} is crossing threshold {threshold[i]}")
+            if (msg.rates[i] >= max_threshold[i]) or (msg.rates[i]<=min_threshold[i]):
+                ctx.logger.critical(f"ALERT!! {i} is crossing threshold")
             
     else:
         #displays error if error occured during fetching rates
