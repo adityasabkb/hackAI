@@ -1,10 +1,6 @@
 import os
 import requests
 
-EXCHANGE_RATE_API = os.environ.get("EXCHANGE_RATE_API")
-
-BASE_LINK = f"http://api.exchangeratesapi.io/v1/latest?access_key={EXCHANGE_RATE_API}"
-
 #function to convert user input
 def convert(secondary, threshold):
     s = secondary.split()
@@ -13,44 +9,32 @@ def convert(secondary, threshold):
     d = dict(zip(s, t))
     return s, d
 
+API_KEY = os.environ.get("CURRENCY_EXCHANGE_API")
+print(API_KEY)
+BASE_URL = "https://api.apilayer.com/currency_data/live?" #source=USD&currencies=JPY,INR"
+
+payload = {}
+headers= {
+  "apikey": API_KEY
+}
+
 #function to get exchange rate of currencies 
 def get_rate(secondary_currencies,base_currency="EUR"):
-    if type(secondary_currencies) in (list,tuple):
-        currencies = ""
-        for i in secondary_currencies:
-            currencies+=i+","
-        if base_currency!="EUR":
-            currencies+=base_currency+","
-        
-        FINAL_LINK = f"{BASE_LINK}&symbols={currencies}&format=1"
-    else:
-        currencies = secondary_currencies
-        
-        if base_currency!="EUR":
-            currencies+=base_currency+","
-        
-        FINAL_LINK = f"{BASE_LINK}&symbols={currencies}&format=1"
+    url = BASE_URL
+    url+=f"source={base_currency}&currencies="
+    for i in secondary_currencies:
+        url+=i + ","
+    url = url[:-1]
+    response = requests.request("GET", url, headers=headers, data = payload)
 
-    #----------FINAL_LINK CREATED---------------
-    # print(FINAL_LINK)
+    status_code = response.status_code
+    assert status_code==200
 
-    response = requests.get(FINAL_LINK)
-
-    if response.status_code!=200:
-        print("error")
-        return -1
-    else:
-        data = response.json()
-        # print(data)
-        # print(data["rates"],type(data["rates"]))
-    #-----------GETTING RESPONSE FROM FINAL LINK----------
-    data["rates"]["EUR"] = 1
+    result = response.json()
     final_dict = {}
-    if type(secondary_currencies) in (list,tuple):
-        for i in secondary_currencies:
-            final_dict[i]= data["rates"][i]/data["rates"][base_currency]
-    else:
-        final_dict[secondary_currencies] = data["rates"][secondary_currencies]/data["rates"]
+    for i in secondary_currencies:
+        final_dict[i] = result["quotes"][base_currency+i]
     return final_dict
+    
 if __name__=="__main__":
     print(get_rate(["INR","AED"],"EUR"))
