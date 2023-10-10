@@ -42,8 +42,8 @@ pip install -r requirements.txt
 ```
 
 4. Adding API key to path variable
-   1. Sign-in on [APILayer](https://apilayer.com/) to get your API key.
-   2. Add CURRENCY_EXCHANGE_API=< your api key > to a .env file inside the src folder.
+   1. Sign-in on [Currency Data API](https://apilayer.com/marketplace/currency_data-api) on APILayer to get your API key.
+   2. Add CURRENCY_EXCHANGE_API=< your API key > to a .env file inside the src folder.
 
 
 ## Run:
