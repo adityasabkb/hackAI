@@ -65,7 +65,7 @@ def get_rate(secondary_currencies,base_currency="EUR"):
     log= ""
     log +=f"{response.json()}"
     
-    with open("././log.txt","a") as f:
+    with open(".././log.txt","a") as f:
         f.write(f"\n{log}")#finally writing log to the log file
         f.close()
 
