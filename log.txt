@@ -1,1 +1,4 @@
 ALL LOGS OF FETCHED DATA WILL BE STORED IN THIS FILE
+base currency: USD secondary currency: {'INR': 83.193149, 'JPY': 148.843009} 
+base currency: USD secondary currency: {'JPY': 148.923995, 'INR': 83.195196} 
+base currency: USD secondary currency: {'JPY': 148.935497, 'INR': 83.1855} 
