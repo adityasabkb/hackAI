@@ -1,9 +1,12 @@
 # CurrencyExchangeAgent
 HackAI IITB Techfest
 
-This is an AI agent that uses uagents library to:
-1. Fetch real-time exchange rates of the currencies
-2. Let users set a minimum and a maximum threshold value for each currency
+This is an AI agent that utilizes Fetch.ai’s uAgents library to:
+ 1. Allows users to select their base currency and one or more foreign currencies they wish to monitor.
+ 2. Connects to a currency exchange API to fetch real-time exchange rates.
+ 3. Lets users set thresholds for alerts (e.g., notify me if 1 USD becomes more than 82.60 INR or less
+than 82.55 EUR).
+ 4. Sends an alert/notification to the user when the exchange rate crosses the thresholds they've set.
 
 
 
